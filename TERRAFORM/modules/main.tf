@@ -1,14 +1,19 @@
 terraform {
-   backend "azurerm" {
-    resource_group_name   = "Terraform1"
-    storage_account_name  = "terraformcodestore1"
-    conainer_name         = "tfstatefile"
-    key                   = "dev.terraform.tfstate"
-
-   }
+  backend "azurerm" {
+    resource_group_name  = "Terraformfirst"
+    storage_account_name = "terraformcodestore2"
+    container_name       = "tfstatefile"
+    key                  = "dev.terraform.tfstate"
+  }
 }
 module "RG" {
-  source   = "modules/RG" #A
-  rgname   = var.rgname   #B
+  source   = "./modules/RG" #A
+  rgname   = var.rgname     #B
+  location = var.location
+}
+module "SA" {
+  source   = "./modules/StorageAccount"
+  sname    = var.sname
+  rgname   = var.rgname
   location = var.location
 }
